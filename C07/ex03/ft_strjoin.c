@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thmu <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/08 20:14:53 by thmu              #+#    #+#             */
+/*   Updated: 2023/07/11 22:10:32 by thmu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int	ft_strlen(char *str)
+{
+	int	len;
+
+	len = 0;
+	while (*str)
+	{
+		len++;
+		str++;
+	}
+	return (len);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		*dest = src[i];
+		i++;
+		dest++;
+	}
+	return (dest);
+}
+
+int	return_length(int size, char **strs, int sep_len)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (i < size)
+	{
+		len += ft_strlen(strs[i]);
+		if (i < size - 1)
+		{
+			len += sep_len;
+		}
+		i ++;
+	}
+	return (len);
+}
+//result = malloc(len * sizeof(char));
+//result = malloc(sizeof(char) * (len + 1));
+
+char	*ft_strjoin(int size, char **strs, char *sep)
+{
+	int		i;
+	int		len;
+	char	*result;
+
+	if (size == 0)
+	{
+		result = malloc(1);
+		return (result);
+	}
+	len = return_length(size, strs, ft_strlen(sep));
+	i = 0;
+	result = malloc(len + 1);
+	if (result == NULL)
+		return (0);
+	while (i < size)
+	{
+		result = ft_strcpy(result, strs[i]);
+		if (i + 1 < size)
+			result = ft_strcpy(result, sep);
+		i ++;
+	}
+	*result = '\0';
+	return (result - len);
+}
+/*
+int	main(void)
+{
+	char	*result;
+	char	*strs[] = {"Hello","world","How are you?"};
+	int	size;
+	char	*sep;
+
+	size = 3;
+	sep = ", ";
+	result = ft_strjoin(size, strs, sep);
+	printf("Concatenated string: %s\n", result);
+	free(result);
+	return (0);
+}*/
