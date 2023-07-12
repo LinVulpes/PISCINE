@@ -6,7 +6,7 @@
 /*   By: thmu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:22:56 by thmu              #+#    #+#             */
-/*   Updated: 2023/07/11 20:40:40 by thmu             ###   ########.fr       */
+/*   Updated: 2023/07/12 07:42:33 by thmu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ void	ft_putnbr(int nb)
 	if (nb == -2147483648)
 	{
 		write (1, "-2147483648", 11);
+	}
+	if (nb < 0)
+	{
+		ft_putchar('-');
 		nb = -nb;
 	}
 	if (nb >= 10)
 	{
 		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
 	}
-	else
-		ft_putchar(nb + '0');
+	ft_putchar('0' + (nb % 10));
 }
 
 void	ft_putstr(char	*str)
@@ -49,7 +51,7 @@ void	ft_show_tab(struct s_stock_str *par)
 	int	i;
 
 	i = 0;
-	while (par[i].str)
+	while (par[i].str != 0)
 	{
 		ft_putstr(par[i].str);
 		ft_putchar('\n');
@@ -60,3 +62,16 @@ void	ft_show_tab(struct s_stock_str *par)
 		i ++;
 	}
 }
+/*
+int main(void)
+{
+    struct s_stock_str stockArray[4] = {
+        {5, "Apple", "AppleCopy"},
+        {6, "Banana", "BananaCopy"},
+        {6, "Orange", "OrangeCopy"},
+        {4, "Mango", "MangoCopy"}
+    };
+
+    ft_show_tab(stockArray);
+    return (0);
+}*/
